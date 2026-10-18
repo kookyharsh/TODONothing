@@ -150,7 +150,8 @@ function render() {
     };
 
     // The Runaway Delete button
-    const del = el("button", "del-btn", "🗑️ Del", li);
+    const del = el("button", "del-btn", null, li);
+    del.innerHTML = '<img src="assets/delete.svg" class="svg-icon" style="width:14px;height:14px;vertical-align:middle;filter:brightness(0) invert(1);" alt="Delete"> Del';
     let dodgeCount = 0;
     del.onpointerenter = () => {
       // Dodges the cursor up to 3 times before staying still
@@ -207,20 +208,7 @@ $("#share").onclick = () => {
 let li0 = 0; const dl = $("#del");
 dl.oninput = () => { li0 = Date.now(); if (dl.value >= 98) { const g = lists.splice(cur, 1)[0]; if (!lists.length) lists.push({ n: "List 1", t: [] }); cur = 0; dl.value = 0; toast("Deleted \u201C" + g.n + "\u201D. Why?"); render() } };
 setInterval(() => { if (Date.now() - li0 > 150 && +dl.value > 0) dl.value -= 5 }, 50);
-const sd = $("#side");
-setInterval(() => { sd.style.right = "auto"; sd.style.left = rnd(0, Math.max(0, innerWidth - 180)) + "px"; sd.style.top = rnd(110, Math.max(120, innerHeight - sd.offsetHeight - 10)) + "px" }, 3500);
 let mx = innerWidth / 2, my = innerHeight / 2;
-
-["Sarah", "Dave", "Guest_482", "xX_Pr0ductive_Xx", "TodoEnjoyer99", "jhon doe", "ACME"].forEach(n => {
-  const u = el("div", "u", null);
-  const img = el("img", "u-cursor", null, u);
-  img.src = "assets/cursor.svg";
-  img.alt = "cursor";
-  el("b", "", n, u);
-  const mv = () => { u.style.left = rnd(0, innerWidth - 90) + "px"; u.style.top = rnd(80, innerHeight - 40) + "px" };
-  mv();
-  setInterval(mv, rnd(1500, 2500));
-});
 function cookie() { $("#ck").hidden = false }
 $("#cw").onclick = () => { $("#ck").hidden = true; setTimeout(cookie, 5000) };
 $("#cm").onclick = () => toast("Preferences managed. (They weren't.)");
@@ -324,6 +312,26 @@ setInterval(() => {
 }, 20000);
 
 function start() {
+  const root = $("#app-root");
+  if (root) root.classList.remove("startup-hidden");
+  render();
+
+  // Start sidebar erratic movement
+  const sd = $("#side");
+  setInterval(() => { sd.style.right = "auto"; sd.style.left = rnd(0, Math.max(0, innerWidth - 180)) + "px"; sd.style.top = rnd(110, Math.max(120, innerHeight - sd.offsetHeight - 10)) + "px" }, 3500);
+
+  // Spawn simulated user pointers
+  ["Sarah", "Dave", "Guest_482", "xX_Pr0ductive_Xx", "TodoEnjoyer99", "jhon doe", "ACME"].forEach(n => {
+    const u = el("div", "u", null);
+    const img = el("img", "u-cursor", null, u);
+    img.src = "assets/cursor.svg";
+    img.alt = "cursor";
+    el("b", "", n, u);
+    const mv = () => { u.style.left = rnd(0, innerWidth - 90) + "px"; u.style.top = rnd(80, innerHeight - 40) + "px" };
+    mv();
+    setInterval(mv, rnd(1500, 2500));
+  });
+
   cookie();
   setTimeout(() => toast("🔋 2% battery remaining. Please plug in your todo list."), 12000);
   setInterval(() => toast("🎉 You won a free pebble! Tap to claim.", () => toast("Pebble out of stock.")), 22000);
@@ -346,9 +354,9 @@ function start() {
   }, 18000);
 }
 
-const cap = el("div", "ov"); cap.style.zIndex = 1000; let tries = 0;
+const cap = el("div", "ov"); cap.id = "cap-overlay"; let tries = 0;
 function capUI() {
-  cap.textContent = ""; const b = el("div", "box", null, cap); el("h2", "", "Verify you're human", b); el("p", "", "Select every square containing a todo", b);
+  cap.textContent = ""; const b = el("div", "box", null, cap); el("h2", "", "Verify you're human", b); el("p", "", "Select every square containing a todo before accessing the app", b);
   const g = el("div", "grid", null, b);[..."🍞🚦🐔🚲🪑✅🌳🐔🚦"].sort(() => R() - .5).forEach(e => { const s = el("div", "sq", e, g); s.onclick = () => s.classList.toggle("sel") });
   el("button", "btn", "Verify", b).onclick = () => {
     if (!g.querySelector(".sel")) { toast("Humans select things."); return }
@@ -366,27 +374,19 @@ function showTerms() {
     t.hidden = true;
     // Fake loading screen
     const loader = $("#loader");
+    loader.hidden = false;
     loader.style.display = "flex";
     let msgs = ["Optimizing your productivity experience...", "Calibrating procrastination algorithms...", "Feeding Gerald...", "Downloading more RAM...", "Consulting the void...", "Almost there... (lie)", "Reticulating splines...", "Compiling excuses..."];
     let mi = 0;
     const li = setInterval(() => {
       mi++;
       if (mi < msgs.length) loader.querySelector("p").textContent = msgs[mi];
-      else { clearInterval(li); loader.classList.add("done"); setTimeout(() => loader.style.display = "none", 600); start() }
+      else { clearInterval(li); loader.classList.add("done"); setTimeout(() => { loader.hidden = true; loader.style.display = "none"; }, 600); start() }
     }, 1500);
   };
 }
 
-// Initial fake loading
-(function () {
-  const loader = $("#loader");
-  let msgs = ["Loading your disappointment...", "Initializing chaos engine...", "Waking up Gerald..."];
-  let mi = 0;
-  const li = setInterval(() => {
-    mi++;
-    if (mi < msgs.length) loader.querySelector("p").textContent = msgs[mi];
-    else { clearInterval(li); loader.classList.add("done"); setTimeout(() => { loader.style.display = "none"; render(); capUI() }, 600) }
-  }, 1200);
-})();
+// Initial startup: immediately present the "Verify you're human" challenge
+capUI();
 
 
