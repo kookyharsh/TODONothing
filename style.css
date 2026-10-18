@@ -177,3 +177,7 @@ li .task-main{display:flex;align-items:center;gap:10px;flex:1;overflow:hidden}
 #chatb img{width:24px;height:24px;display:block;margin:auto}
 #pw-wall img{vertical-align:middle;margin-right:6px;width:28px;height:28px}
 
+/* Startup gating */
+.startup-hidden{display:none!important}
+#cap-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#2c3e50,#000000)}
+
