@@ -2,10 +2,11 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>My Lists</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗑️</text></svg>">
 <link rel="stylesheet" href="style.css"></head><body>
 
 <!-- Fake loading screen -->
-<div id="loader"><div class="spinner"></div><p>Optimizing your productivity experience...</p></div>
+<div id="loader" hidden><div class="spinner"></div><p>Optimizing your productivity experience...</p></div>
 
 <!-- Terms and conditions wall -->
 <div id="terms" hidden>
@@ -45,6 +46,7 @@
 </div>
 </div>
 
+<div id="app-root" class="startup-hidden">
 <div id="warn"><span>⚠ ITEM ORDER IS NOT GUARANTEED AND NEVER WILL BE. PLEASE DO NOT RELY ON THIS APP FOR ANYTHING. THIS APP HAS BEEN VOTED "LEAST USEFUL SOFTWARE" 7 YEARS RUNNING. ⚠</span></div>
 <div id="coupon"><img src="assets/discount_cupon.svg" class="svg-icon" alt="Coupon"> 70% OFF! Code: NOTHING</div>
 <div id="notif-badge">99+</div>
@@ -85,6 +87,7 @@
 <span>VOL</span>
 <input type="range" id="vol" min="0" max="100" value="73" orient="vertical" style="height:80px;writing-mode:vertical-lr">
 <span id="vol-val">73%</span>
+</div>
 </div>
 
 <script src="script.js"></script></body></html>
