@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Lists</title>
+<link rel="stylesheet" href="style.css"></head><body>
+
+<!-- Fake loading screen -->
+<div id="loader"><div class="spinner"></div><p>Optimizing your productivity experience...</p></div>
+
+<!-- Terms and conditions wall -->
+<div id="terms" hidden>
+<h1>📜 Terms & Conditions (MANDATORY READ)</h1>
+<p>By using this application ("The App", "This Thing", "The Nightmare"), you agree to the following non-negotiable, irrevocable, and totally made-up terms:</p>
+<p>Section 1: You acknowledge that your tasks belong to us now. All tasks submitted become intellectual property of TodoNothing Inc., a subsidiary of NobodyCares LLC. We may sell, redistribute, or read your tasks aloud at parties.</p>
+<p>Section 2: The "Undo" button does not undo anything meaningful. It removes a random item. This is by design. Complaining about this will result in additional random deletions.</p>
+<p>Section 3: Checkboxes may or may not respond to clicks. They have feelings. Sometimes they just don't want to be checked. Respect their boundaries.</p>
+<p>Section 4: The sidebar ("MY LISTS") is sentient and will move around the screen. Do not attempt to catch it. It will only move faster.</p>
+<p>Section 5: This app uses cookies. Not digital ones. We will mail you actual cookies. They will be oatmeal raisin. There is no opt-out.</p>
+<p>Section 6: Dark Mode is a philosophical concept, not a feature. Toggling it will briefly invert colors and then gaslight you.</p>
+<p>Section 7: Your data is stored nowhere. We do not have a database. We do not have servers. This is running on a toaster. YOUR toaster.</p>
+<p>Section 8: The AI chatbot is powered by a hamster on a wheel. The hamster's name is Gerald. Gerald is doing his best.</p>
+<p>Section 9: Export functionality will generate a file called void.txt. The file contains nothing. This is the most honest feature in the app.</p>
+<p>Section 10: The "Scroll to top" button scrolls to the bottom. This is not a bug. We believe in challenging expectations.</p>
+<p>Section 11: Any resemblance to a functional application is purely coincidental and frankly embarrassing for us.</p>
+<p>Section 12: By scrolling this far you've wasted approximately 45 seconds of your life. Those seconds belong to us now. See Section 1.</p>
+<p>Section 13: We reserve the right to replace any word in your tasks with "quack" at any time, for any reason, or for no reason at all.</p>
+<p>Section 14: The free trial expires after approximately 40 seconds. The paid plan costs $9.99. The paid plan is identical to the free plan. Money well spent.</p>
+<p>Section 15: If you are reading this, blink twice. We can see you. The eyes on screen are not decorative.</p>
+<p>Section 16: Lorem ipsum dolor sit amet, consectetur adipiscing elit. We included this because no one reads these anyway. Surprise! You read it. Congratulations. Your prize is nothing.</p>
+<p>Section 17 (FINAL): These terms may change at any moment without notice, reason, or regard for your emotional wellbeing. By existing near a computer, you have agreed.</p>
+<div class="accept-row">
+<label><input type="checkbox" id="terms-agree"> I have read, understood, and deeply regret all of the above</label><br>
+<button class="btn" id="terms-accept" disabled>Accept & Suffer</button>
+</div>
+</div>
+
+<!-- Password wall -->
+<div id="pw-wall" hidden>
+<div class="pw-box">
+<h2><img src="assets/session_lock.svg" class="svg-icon-lg" alt="Lock"> Session Expired</h2>
+<p>Please re-enter your password to continue procrastinating.</p>
+<input type="password" id="pw-input" placeholder="Password">
+<div class="pw-hint">Hint: it's "password" but we won't accept that either</div>
+<button class="btn" id="pw-submit">Log In</button>
+</div>
+</div>
+
+<div id="warn"><span>⚠ ITEM ORDER IS NOT GUARANTEED AND NEVER WILL BE. PLEASE DO NOT RELY ON THIS APP FOR ANYTHING. THIS APP HAS BEEN VOTED "LEAST USEFUL SOFTWARE" 7 YEARS RUNNING. ⚠</span></div>
+<div id="coupon"><img src="assets/discount_cupon.svg" class="svg-icon" alt="Coupon"> 70% OFF! Code: NOTHING</div>
+<div id="notif-badge">99+</div>
+<button class="btn" id="gear">⚙</button>
+<div id="set" hidden><b>Settings (None of these work)</b>
+<label><input type="checkbox" id="dm"> Dark Mode</label>
+<label><input type="checkbox" checked> Notifications (you can't turn these off)</label>
+<label><input type="checkbox" checked> Autosave (autodelete, actually)</label>
+<label><input type="checkbox" checked id="rm"> Reduce Motion (lol no)</label>
+<label><input type="checkbox"> Enable Sanity (coming soon™)</label>
+<label><input type="checkbox" checked> Send Data to Gerald the Hamster</label></div>
+<aside id="side"><h2>MY LISTS</h2><div id="tabs"></div><button class="btn" id="nl" style="margin:8px 0">+ New list</button><input type="range" id="del" min="0" max="100" value="0"><small>Slide all the way to delete list (slider fights back)</small></aside>
+<main>
+<h2 id="title"></h2>
+<div class="bar"><button class="btn" id="undo">↩ Undo (random)</button><button class="btn" id="exp">Export data</button><button class="btn" id="share">📤 Share</button></div>
+<input class="in" id="ti" placeholder="Add a task… (we might change what you type)" autocomplete="off">
+<input class="in" id="di" placeholder="Description (we'll probably ignore this)" autocomplete="off">
+<button class="btn" id="add">Add</button>
+<ul id="ul"></ul>
+<div id="foot">© 2026 TodoNothing Inc. A subsidiary of NobodyCares LLC. You've reached the bottom. There is no top. There is no escape.</div>
+</main>
+<button class="btn" id="up">⬆ Scroll to top (lie)</button>
+<button id="chatb"><img src="assets/chat.svg" class="svg-icon-lg" alt="Chat"></button><div id="chat" hidden></div>
+<div id="wiz"><div id="wb">Quick tip: Tasks are more fun when they're not done.</div>🧙</div>
+<div id="ck" hidden><div><img src="assets/cookie.svg" class="svg-icon" alt="Cookie"> This site uses cookies. (It doesn't. We just like asking.) Also we're tracking you. (We're not. Or are we?)<button id="cw">Whatever</button><a id="cm">Manage preferences</a></div></div>
+<div id="toasts"></div>
+<div id="ad-banner">🔥 HOT DEAL: Upgrade to TodoNothing PRO for only $49.99/minute! 🔥<button class="ad-close" title="Close">×</button></div>
+
+<!-- Clippy helper -->
+<div id="clippy">
+<div class="clippy-bubble" id="clippy-text">It looks like you're trying to be productive. Would you like me to make that harder?</div>
+<div class="clippy-char">📎</div>
+</div>
+
+<!-- Volume slider that does nothing -->
+<div id="vol-ctrl">
+<span class="vol-icon" id="vol-icon-wrap"><img src="assets/volume_up.svg" id="vol-svg" alt="Volume"></span>
+<span>VOL</span>
+<input type="range" id="vol" min="0" max="100" value="73" orient="vertical" style="height:80px;writing-mode:vertical-lr">
+<span id="vol-val">73%</span>
+</div>
+
+<script src="script.js"></script></body></html>
